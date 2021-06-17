@@ -17,7 +17,7 @@ public protocol SearchBarDelegate {
 @available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public struct SearchBar: View {
-    @Binding var searchBarDelegate: SearchBarDelegate
+    @Binding public var searchBarDelegate: SearchBarDelegate
     
     public var body: some View {
         HStack {
