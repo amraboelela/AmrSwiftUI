@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-protocol SearchBarDelegate {
+public protocol SearchBarDelegate {
     var searchText: String {get set}
     func startSearch()
     func updateData()
@@ -16,10 +16,10 @@ protocol SearchBarDelegate {
 
 @available(iOS 13.0, *)
 @available(macOS 10.15, *)
-struct SearchBar: View {
+public struct SearchBar: View {
     @Binding var searchBarDelegate: SearchBarDelegate
     
-    var body: some View {
+    public var body: some View {
         HStack {
             #if os(iOS)
             HStack {
