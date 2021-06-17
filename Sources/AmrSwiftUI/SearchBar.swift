@@ -14,10 +14,26 @@ public protocol SearchBarDelegate {
     func updateData()
 }
 
+class SearchBarDelegateStub: SearchBarDelegate {
+    var searchText = ""
+    
+    func startSearch() {
+        print("startSearch")
+    }
+    
+    func updateData() {
+        print("updateData")
+    }
+}
+
 @available(iOS 13.0, *)
 @available(macOS 10.15, *)
 public struct SearchBar: View {
-    @Binding public var searchBarDelegate: SearchBarDelegate
+    @Binding var searchBarDelegate: SearchBarDelegate
+    
+    public init(searchBarDelegate: Binding<SearchBarDelegate>) {
+        self._searchBarDelegate = searchBarDelegate
+    }
     
     public var body: some View {
         HStack {
@@ -52,7 +68,7 @@ public struct SearchBar: View {
 }
 
 #if DEBUG
-class PostsViewModelTest: SearchBarDelegate {
+/*class PostsViewModelTest: SearchBarDelegate {
     var searchText = ""
     
     func startSearch() {
@@ -62,15 +78,15 @@ class PostsViewModelTest: SearchBarDelegate {
     func updateData() {
         print("updateData")
     }
-}
+}*/
 
 @available(iOS 13.0, *)
 @available(macOS 10.15, *)
 struct SearchBar_Previews: PreviewProvider {
-    @State static var postsViewModelTest: SearchBarDelegate = PostsViewModelTest()
+    @State static var searchBarDelegateStub: SearchBarDelegate = SearchBarDelegateStub()
     
     static var previews: some View {
-        SearchBar(searchBarDelegate: $postsViewModelTest)
+        SearchBar(searchBarDelegate: $searchBarDelegateStub)
     }
 }
 
