@@ -14,6 +14,12 @@ public struct SearchBar: View {
     var startSearchCallback: (() -> Void)?
     var updateDataCallback: (() -> Void)?
     
+    public init(searchText: Binding<String>, startSearchCallback: (() -> Void)?, updateDataCallback: (() -> Void)?) {
+        self._searchText = searchText
+        self.startSearchCallback = startSearchCallback
+        self.updateDataCallback = updateDataCallback
+    }
+    
     public var body: some View {
         HStack {
             HStack {
