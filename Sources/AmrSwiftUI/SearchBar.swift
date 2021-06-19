@@ -25,7 +25,7 @@ public struct SearchBar: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                 
-                TextField("search", text: $searchText, onEditingChanged: { beginsEditing in
+                TextField("Search", text: $searchText, onEditingChanged: { beginsEditing in
                     if !beginsEditing {
                         startSearchCallback?()
                     }
