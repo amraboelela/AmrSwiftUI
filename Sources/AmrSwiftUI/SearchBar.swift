@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@available(macOS 10.15, *)
 @available(iOS 13.0, *)
 public struct SearchBar: View {
     @Binding var searchText: String
@@ -21,32 +22,63 @@ public struct SearchBar: View {
     }
     
     public var body: some View {
-        HStack {
+        if #available(macOS 11.0, *) {
+            #if os(iOS)
             HStack {
-                Image(systemName: "magnifyingglass")
-                
-                TextField("Search", text: $searchText, onEditingChanged: { beginsEditing in
-                    if !beginsEditing {
-                        startSearchCallback?()
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search", text: $searchText, onEditingChanged: { beginsEditing in
+                        if !beginsEditing {
+                            startSearchCallback?()
+                        }
+                    }, onCommit: {
+                        print("onCommit")
+                    })
+                    .foregroundColor(.primary)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    Button(action: {
+                        searchText = ""
+                        updateDataCallback?()
+                    }) {
+                        Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                     }
-                }, onCommit: {
-                    print("onCommit")
-                })
-                .foregroundColor(.primary)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                
-                Button(action: {
-                    searchText = ""
-                    updateDataCallback?()
-                }) {
-                    Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                 }
+                .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                .foregroundColor(.secondary)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(10.0)
             }
-            .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-            .foregroundColor(.secondary)
-            .background(Color(.secondarySystemBackground))
-            .cornerRadius(10.0)
+            #else
+            HStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search", text: $searchText, onEditingChanged: { beginsEditing in
+                        if !beginsEditing {
+                            startSearchCallback?()
+                        }
+                    }, onCommit: {
+                        print("onCommit")
+                    })
+                    .foregroundColor(.primary)
+                    //.autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    
+                    Button(action: {
+                        searchText = ""
+                        updateDataCallback?()
+                    }) {
+                        Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                    }
+                }
+                .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                .foregroundColor(.secondary)
+                //.background(Color(.secondarySystemBackground))
+                .cornerRadius(10.0)
+            }
+            #endif
+        } else {
+            // Fallback on earlier versions
         }
     }
 }
