@@ -21,9 +21,10 @@ public struct SearchBar: View {
         self.updateDataCallback = updateDataCallback
     }
     
+    @available(macOS 10.15, *)
     public var body: some View {
-        if #available(macOS 11.0, *) {
-            #if os(iOS)
+        #if os(iOS)
+        if #available(iOS 14.0, *) {
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -49,7 +50,11 @@ public struct SearchBar: View {
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(10.0)
             }
-            #else
+        } else {
+            // Fallback on earlier versions
+        }
+        #else
+        if #available(macOS 11.0, *) {
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -61,25 +66,24 @@ public struct SearchBar: View {
                         print("onCommit")
                     })
                     .foregroundColor(.primary)
-                    //.autocapitalization(.none)
                     .disableAutocorrection(true)
-                    
-                    Button(action: {
-                        searchText = ""
-                        updateDataCallback?()
-                    }) {
+                    Button(
+                        action: {
+                            searchText = ""
+                            updateDataCallback?()
+                        }
+                    ) {
                         Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                     }
                 }
                 .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
                 .foregroundColor(.secondary)
-                //.background(Color(.secondarySystemBackground))
                 .cornerRadius(10.0)
             }
-            #endif
         } else {
             // Fallback on earlier versions
         }
+        #endif
     }
 }
 
