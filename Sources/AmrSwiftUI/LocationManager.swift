@@ -17,7 +17,7 @@ public class LocationManager: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var locationStatus: CLAuthorizationStatus?
     @Published var lastLocation: CLLocation?
 
-    override init() {
+    public override init() {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
