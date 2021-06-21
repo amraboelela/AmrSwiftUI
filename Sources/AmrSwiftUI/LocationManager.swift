@@ -25,7 +25,7 @@ public class LocationManager: NSObject, ObservableObject, CLLocationManagerDeleg
         locationManager.startUpdatingLocation()
     }
 
-    var statusString: String {
+    public var statusString: String {
         guard let status = locationStatus else {
             return "unknown"
         }
