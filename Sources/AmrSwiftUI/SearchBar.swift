@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if canImport(Combine)
 @available(macOS 10.15, *)
 @available(iOS 13.0, *)
 public struct SearchBar: View {
@@ -86,7 +87,6 @@ public struct SearchBar: View {
     }
 }
 
-
 #if DEBUG
 @available(iOS 13.0, *)
 @available(macOS 10.15, *)
@@ -105,4 +105,4 @@ struct SearchBar_Previews: PreviewProvider {
     }
 }
 #endif
-
+#endif

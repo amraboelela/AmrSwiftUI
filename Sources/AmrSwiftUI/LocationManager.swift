@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+#if canImport(Combine)
 import Combine
 
 @available(macOS 10.15, *)
@@ -51,3 +52,4 @@ public class LocationManager: NSObject, ObservableObject, CLLocationManagerDeleg
         print(#function, location)
     }
 }
+#endif
