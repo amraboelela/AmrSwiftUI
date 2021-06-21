@@ -14,8 +14,8 @@ import Combine
 public class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
-    @Published var locationStatus: CLAuthorizationStatus?
-    @Published var lastLocation: CLLocation?
+    @Published public var locationStatus: CLAuthorizationStatus?
+    @Published public var lastLocation: CLLocation?
 
     public override init() {
         super.init()
