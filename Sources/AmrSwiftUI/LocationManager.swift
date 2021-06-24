@@ -14,7 +14,7 @@ import Combine
 @available(iOS 13.0, *)
 public class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
-    private let locationManager = CLLocationManager()
+    public let locationManager = CLLocationManager()
     @Published public var locationStatus: CLAuthorizationStatus?
     @Published public var lastLocation: CLLocation?
 
