@@ -8,6 +8,7 @@
 import SwiftUI
 
 #if canImport(Combine)
+@available(watchOS 6.0, *)
 @available(macOS 10.15, *)
 @available(iOS 13.0, *)
 public struct SearchBar: View {
@@ -53,7 +54,7 @@ public struct SearchBar: View {
         } else {
             // Fallback on earlier versions
         }
-        #else
+        #elseif os(macOS)
         if #available(macOS 11.0, *) {
             HStack {
                 HStack {
@@ -93,6 +94,7 @@ public struct SearchBar: View {
 struct SearchBar_Previews: PreviewProvider {
     @State static var searchText = ""
     
+    @available(watchOS 6.0, *)
     static var previews: some View {
         SearchBar(
             searchText: $searchText,
